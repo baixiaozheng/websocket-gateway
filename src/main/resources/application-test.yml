@@ -1,0 +1,65 @@
+spring:
+  redis:
+    host: master.redis-test.g3nhy0.apne1.cache.amazonaws.com
+    port: 6379
+    password: SoGcj1X2Ox6rrN8C
+    ssl: true
+    timeout: 10000
+    jedis:
+      pool:
+        max-idle: 1024
+        max-active: 10000
+        max-wait: 200
+        min-idle: 10
+        time-between-eviction-runs: 60000
+#  zipkin:
+#    base-url: https://zipkin-test.pizzaex.pro/
+#    sender:
+#      type: web
+#  sleuth:
+#    sampler:
+#      probability: 0.1
+
+websocket-gateway:
+  vertx:
+    verticles: # see io.vertx.core.DeploymentOptionsConverter
+      gateway:
+        ha: false
+        instances: 0
+    ws.port: 8080
+    httpclient:
+      pool.size: 15
+      request-timeout: 3000
+  #mq配置
+  mq:
+    username: bjextest
+    password: bjextest
+    host: 172.30.173.224
+    port: 5672
+    heart-beat: 60
+    connection-timeout: 6000
+    quotation-queue: quotation-queue-
+    balance-queue: balance-queue-
+    ordinary-queue: ordinary-queue-
+    proprietary-queue: proprietary-queue-
+
+logging.level:
+  root: INFO
+
+token:
+  expire: 7200000
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_SERVER_LIST}
+  instance:
+    instance-id: richman-webcocket-gateway
+    prefer-ip-address: true
+
+ribbon:
+  OkToRetryOnAllOperations: false #对所有操作请求都进行重试,默认false
+  ReadTimeout: 5000   #负载均衡超时时间，默认值5000
+  ConnectTimeout: 5000 #ribbon请求连接的超时时间，默认值2000
+  MaxAutoRetries: 0     #对当前实例的重试次数，默认0
+  MaxAutoRetriesNextServer: 1 #对切换实例的重试次数，默认1

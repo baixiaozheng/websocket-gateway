@@ -1,0 +1,46 @@
+info:
+  app:
+    name: websocket-gateway
+    seq: 1
+  env:
+    name: local
+spring:
+  application:
+    name: websocket-gateway
+  profiles:
+    active: local
+  rabbitmq:
+    host: 127.0.0.1
+    username: admin
+    password: admin
+    port: 5672
+
+websocket-gateway:
+  vertx:
+    blocked-thread-check-interval: 2000
+    warning-exception-time: 2000000000
+    cache-max-time-to-live: 3600
+
+    verticles: # see io.vertx.core.DeploymentOptionsConverter
+      gateway:
+        ha: false
+        instances: 0
+        worker: false
+        worker-pool-name: gateway-work-pool
+        worker-pool-size: 20
+        max-worker-execute-time: 60000000000
+        multi-threaded: false
+    ws.port: 8080
+    ws.host: 0.0.0.0
+    httpclient:
+      pool.size: 5
+      ssl: false
+      connection-timeout: 5000
+      request-timeout: 3000
+  msg:
+      shard-count: 0
+
+
+logging.level:
+  root: INFO
+
